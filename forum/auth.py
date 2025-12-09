@@ -31,6 +31,7 @@ def action_logout():
 	logout_user()
 	return redirect("/")
 
+
 @auth.route('/action_createaccount', methods=['POST'])
 def action_createaccount():
 	username = request.form['username']
