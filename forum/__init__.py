@@ -1,7 +1,12 @@
 from flask import Flask
-from forum.routes import rt
+# from forum.routes import rt
+
 from forum.auth import auth #NEW LINE imports auth blueprint
 from forum.post_routes import post_rt #NEW LINE imports post blueprint
+from forum.comments import comments_bp
+from flask import Blueprint
+
+
 
 def create_app():
     """Construct the core application."""
@@ -11,9 +16,10 @@ def create_app():
     # post_routes
     # subforum_routes
     # etc
-    app.register_blueprint(rt)
+    # app.register_blueprint(rt)
     app.register_blueprint(auth) #NEW LINE registers auth blueprint
-    app.register_blueprint(post_rt) #NEW LINE registers auth blueprint
+    app.register_blueprint(post_rt) #NEW LINE registers post blueprint
+    app.register_blueprint(comments_bp) #NEW LINE registered app blueprint for comments
     # Set globals
     from forum.models import db
     db.init_app(app)
