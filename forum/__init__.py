@@ -13,7 +13,7 @@ def create_app():
     # etc
     app.register_blueprint(rt)
     app.register_blueprint(auth) #NEW LINE registers auth blueprint
-    app.register_blueprint(post_rt) #NEW LINE registers auth blueprint
+    app.register_blueprint(post_rt) #NEW LINE registers post blueprint
     # Set globals
     from forum.models import db
     db.init_app(app)
