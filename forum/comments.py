@@ -25,3 +25,5 @@ def comment():
 	post.comments.append(comment)
 	db.session.commit()
 	return redirect("/viewpost?post=" + str(post_id))
+
+# Moved to a new Port to solve running issues "Port 5002"

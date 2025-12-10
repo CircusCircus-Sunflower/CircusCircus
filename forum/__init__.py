@@ -6,7 +6,7 @@ from forum.post_routes import post_rt #NEW LINE imports post blueprint
 from forum.comments import comments_bp
 from flask import Blueprint
 
-
+# Removed comments_bp = Blueprint("comments", __name__) from init for better connection
 
 def create_app():
     """Construct the core application."""
