@@ -9,3 +9,4 @@ SQLAlchemy
 Werkzeug
 wheel
 honcho
+psycopg2-binary
