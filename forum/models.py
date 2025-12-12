@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     admin = db.Column(db.Boolean, default=False)
     posts = db.relationship("Post", backref="user")
     comments = db.relationship("Comment", backref="user")
-    reactions = db.relationship("Reaction", backref="user")
+    reactions = db.relationship("Reaction", backref="user")#Reactions added
 
     def __init__(self, email, username, password):
         self.email = email

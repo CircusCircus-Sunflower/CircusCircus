@@ -34,7 +34,7 @@ def delete_comment(comment_id):
 		return error("Comment not found!")
 	if comment.user_id != current_user.id:
 		return error("You can only delete your own comments!")
-	
+
 	post_id = comment.post_id
 	db.session.delete(comment)
 	db.session.commit()
