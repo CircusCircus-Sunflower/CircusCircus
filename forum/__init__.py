@@ -5,6 +5,7 @@ from forum.auth import auth #NEW LINE imports auth blueprint
 from forum.post_routes import post_rt #NEW LINE imports post blueprint
 from forum.comments import comments_bp
 from flask import Blueprint
+from forum.reactions import reactions_bp
 
 # Removed comments_bp = Blueprint("comments", __name__) from init for better connection
 
@@ -20,6 +21,7 @@ def create_app():
     app.register_blueprint(auth) #NEW LINE registers auth blueprint
     app.register_blueprint(post_rt) #NEW LINE registers post blueprint
     app.register_blueprint(comments_bp) #NEW LINE registered app blueprint for comments
+    app.register_blueprint(reactions_bp) #NEW LINE registered reactions blueprint
     # Set globals
     from forum.models import db
     db.init_app(app)
