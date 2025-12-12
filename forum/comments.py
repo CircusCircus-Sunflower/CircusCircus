@@ -26,4 +26,20 @@ def comment():
 	db.session.commit()
 	return redirect("/viewpost?post=" + str(post_id))
 
+@comments_bp.route('/delete_comment/<int:comment_id>', methods=['POST'])
+@login_required
+def delete_comment(comment_id):
+	comment = Comment.query.get(comment_id)
+	if not comment:
+		return error("Comment not found!")
+	if comment.user_id != current_user.id:
+		return error("You can only delete your own comments!")
+	
+	post_id = comment.post_id
+	db.session.delete(comment)
+	db.session.commit()
+	return redirect("/viewpost?post=" + str(post_id))
+
+# Top two code blocks "def comment" & "def delete" have been added, ran and tested.
+
 # Moved to a new Port to solve running issues "Port 5002"
