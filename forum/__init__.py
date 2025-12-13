@@ -9,7 +9,7 @@ from forum.reactions import reactions_bp
 
 # Removed comments_bp = Blueprint("comments", __name__) from init for better connection
 
-def create_app():
+def create_app(): #Our Note Factory
     """Construct the core application."""
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object('config.Config')
