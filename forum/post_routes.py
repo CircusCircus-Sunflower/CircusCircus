@@ -68,3 +68,17 @@ def action_post():
 	db.session.commit()
 	return redirect("/viewpost?post=" + str(post.id))
 
+@post_rt.route('/delete_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get(post_id)
+    if not post:
+        return error("Post not found")
+    if post.user_id != current_user.id:
+        return error("You can only delete your own posts!")
+
+    subforum_id = post.subforum_id
+    db.session.delete(post)
+    db.session.commit()
+    return redirect("/subforum?sub=" + str(subforum_id))
+

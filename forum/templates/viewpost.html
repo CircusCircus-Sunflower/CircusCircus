@@ -12,9 +12,15 @@
 		<div class="posttime">
 			{{ post.get_time_string() }}
 		</div>
+			{% if current_user.is_authenticated and current_user.id == post.user_id %}
+		<form action="/delete_post/{{ post.id }}" method="POST" style="display:inline;">
+			<button type="submit">Delete Post</button>
+		</form>
+		{% endif %}
+		</div>
 	</div>
 	<div class="postcontent">
-		{{post.content}}
+		{{post.content | embed_media | safe}}
 	</div>
 
 	<div class="reactions">

@@ -6,6 +6,7 @@ from forum.post_routes import post_rt #NEW LINE imports post blueprint
 from forum.comments import comments_bp
 from flask import Blueprint
 from forum.reactions import reactions_bp
+from forum.models import embed_media
 
 # Removed comments_bp = Blueprint("comments", __name__) from init for better connection
 
@@ -13,6 +14,11 @@ def create_app():
     """Construct the core application."""
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object('config.Config')
+
+    @app.template_filter('embed_media')
+    def embed_media_filter(content):
+        return embed_media(content)
+
     # I think more blueprints might be used to break routes up into things like
     # post_routes
     # subforum_routes
@@ -30,4 +36,5 @@ def create_app():
         # Add some routes
         db.create_all()
         return app
+
 
