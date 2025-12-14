@@ -17,16 +17,16 @@ def create_app(): #Our Note Factory
     # post_routes
     # subforum_routes
     # etc
-    # app.register_blueprint(rt)
+    # load settings from config.py. app.register_blueprint(rt)
     app.register_blueprint(auth) #NEW LINE registers auth blueprint
     app.register_blueprint(post_rt) #NEW LINE registers post blueprint
     app.register_blueprint(comments_bp) #NEW LINE registered app blueprint for comments
     app.register_blueprint(reactions_bp) #NEW LINE registered reactions blueprint
     # Set globals
-    from forum.models import db
+    from forum.models import db #register each blueprint- tells Flask" here are more routes to handle"
     db.init_app(app)
 
-    with app.app_context():
+    with app.app_context(): #Connect SQLAlchemy to the Flask app.
         # Add some routes
         db.create_all()
         return app

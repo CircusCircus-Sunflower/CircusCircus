@@ -1,18 +1,18 @@
 
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash #securely creates hash passwords
+from flask_login import UserMixin #adds methods like is_authenticated that Flask-Login
 import datetime
 
-# create db here so it can be imported (with the models) into the App object.
+# create SQLAlchemy db here so it can be imported (with the models) into the App object.
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 #OBJECT MODELS
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.Text, unique=True)
-    password_hash = db.Column(db.Text)
+    id = db.Column(db.Integer, primary_key=True) #User Table
+    username = db.Column(db.Text, unique=True) #Unique ID for each user
+    password_hash = db.Column(db.Text)#Stores the hash password
     email = db.Column(db.Text, unique=True)
     admin = db.Column(db.Boolean, default=False)
     posts = db.relationship("Post", backref="user")
