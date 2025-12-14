@@ -6,7 +6,7 @@ from forum.models import Subforum, db, User
 from . import create_app
 app = create_app()
 
-app.config['SITE_NAME'] = 'Mubble'
+app.config['SITE_NAME'] = 'Mumble'
 app.config['SITE_DESCRIPTION'] = 'A Pop culture & Technology forum'
 app.config['FLASK_DEBUG'] = 1
 
