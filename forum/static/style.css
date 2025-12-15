@@ -11,6 +11,9 @@
 	padding-left: 3%;
 	padding-right: 3%;
 
+	background: #f7f4ef; /* cream background */
+	color: #111111; /* near-black text */
+
 }
 .header{
 	border: 1px solid black;
@@ -132,10 +135,12 @@
 	font-weight: bold;
 }
 .actualpost{
-	padding: 1%;
-	border: 1px solid black;
-	border-collapse: collapse;
-	margin-bottom: 1%;
+	background: #ffffff;
+	border: 1px solid #e6e1d8;
+	border-radius: 10px;
+	padding: 1rem;
+
+	margin-bottom: 1.5rem;
 }
 .actualposttitle{
 	border-collapse: collapse;
@@ -145,7 +150,7 @@
 	font-weight: bold;
 }
 .postcontent{
-	padding: 1%;
+	line-height: 1.6;
 }
 .postposter{
 	font-size: 12pt;
