@@ -45,6 +45,7 @@
 	<div class="post">
 		<div class="posttitle">
 		<a href="/viewpost?post={{ post.id }}">{{ post.title }}</a>
+		<span class="comment-count">({{ post.comments | length}} comments)</span> # Allows access to all the comments with
 		</div>
 		<div class="postusername">
 			by <b {% if post.user.admin %} style="color: red;" {% endif %}> {{post.user.username}}</b>

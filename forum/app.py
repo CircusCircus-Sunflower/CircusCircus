@@ -6,17 +6,17 @@ from forum.models import Subforum, db, User
 from . import create_app
 app = create_app()
 
-app.config['SITE_NAME'] = 'Schooner'
-app.config['SITE_DESCRIPTION'] = 'a schooner forum'
+app.config['SITE_NAME'] = 'Mumble'
+app.config['SITE_DESCRIPTION'] = 'A Pop Culture & Technology Forum'
 app.config['FLASK_DEBUG'] = 1
 
 def init_site():
 	print("creating initial subforums")
-	admin = add_subforum("Forum", "Announcements, bug reports, and general discussion about the forum belongs here")
-	add_subforum("Announcements", "View forum announcements here",admin)
-	add_subforum("Bug Reports", "Report bugs with the forum here", admin)
-	add_subforum("General Discussion", "Use this subforum to post anything you want")
-	add_subforum("Other", "Discuss other things here")
+	admin = add_subforum("The Mumble Room", "Where announcements, updates, and general discussion live")
+	add_subforum("The Drop", "Official updates, releases, and community notices",admin)
+	add_subforum("Tech Support & Bugs", "Report issues, glitches, and technical problems", admin)
+	add_subforum("Open Mic", "Talk about anything pop culture, tech, or trending")
+	add_subforum("Off the Record", "Everything that doesn't fit anywhere else")
 
 def add_subforum(title, description, parent=None):
 	sub = Subforum(title, description)

@@ -2,6 +2,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import datetime
+import re
 
 # create db here so it can be imported (with the models) into the App object.
 from flask_sqlalchemy import SQLAlchemy
@@ -25,7 +26,7 @@ class User(UserMixin, db.Model):
         self.password_hash = generate_password_hash(password)
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
@@ -149,10 +150,39 @@ def generateLinkPath(subforumid):
 		link = link + " / " + l
 	return link
 
-
 #Post checks
 def valid_title(title):
 	return len(title) > 4 and len(title) < 140
 def valid_content(content):
 	return len(content) > 10 and len(content) < 5000
 
+#embed media
+#https://developers.google.com/youtube/player_parameters
+#from apple https://embed.music.apple.com/us/album/ALBUM_NAME/ALBUM_ID?i=SONG_ID
+
+def embed_media(content):
+    """Convert YouTube and Apple Music links to embedded players."""
+    # YouTube: https://www.youtube.com/watch?v=VIDEO_ID
+    youtube_pattern = r'https?://(?:www\.|m\.)?(?:youtube\.com/(?:watch\?(?:.*&)?v=|shorts/|embed/)|youtu\.be/)([a-zA-Z0-9_-]+)(?:[^\s]*)'
+
+    content = re.sub(
+        youtube_pattern,
+        # Change "no-referrer" to "origin"
+        r'<iframe width="560" height="315" src="https://www.youtube.com/embed/\1" frameborder="0" allowfullscreen referrerpolicy="origin"></iframe>',
+        content
+    )
+    # Apple Music song: https://music.apple.com/us/album/song-name/ALBUM_ID?i=SONG_ID
+    apple_music_pattern = r'https?://music\.apple\.com/(\w+)/album/[^/]+/(\d+)\?i=(\d+)'
+    content = re.sub(
+        apple_music_pattern,
+        r'<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/\1/album/\2?i=\3"></iframe>',
+        content
+    )
+    # Apple Music album: https://music.apple.com/us/album/album-name/ALBUM_ID
+    apple_album_pattern = r'https?://music\.apple\.com/(\w+)/album/[^/]+/(\d+)(?!\?)'
+    content = re.sub(
+        apple_album_pattern,
+        r'<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/\1/album/\2"></iframe>',
+        content
+    )
+    return content
