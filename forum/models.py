@@ -163,17 +163,12 @@ def valid_content(content):
 def embed_media(content):
     """Convert YouTube and Apple Music links to embedded players."""
     # YouTube: https://www.youtube.com/watch?v=VIDEO_ID
-    youtube_pattern = r'https?://(?:www\.)?youtube\.com/watch\?v=([a-zA-Z0-9_-]+)'
-    content = re.sub(#finds the function and replaces it with <iframe>
-        youtube_pattern,
-        r'<iframe width="560" height="315" src="https://www.youtube.com/embed/\1" frameborder="0" allowfullscreen></iframe>',
-        content
-    )
-    # YouTube short: https://youtu.be/VIDEO_ID
-    youtube_short_pattern = r'https?://youtu\.be/([a-zA-Z0-9_-]+)'
+    youtube_pattern = r'https?://(?:www\.|m\.)?(?:youtube\.com/(?:watch\?(?:.*&)?v=|shorts/|embed/)|youtu\.be/)([a-zA-Z0-9_-]+)(?:[^\s]*)'
+
     content = re.sub(
-        youtube_short_pattern,
-        r'<iframe width="560" height="315" src="https://www.youtube.com/embed/\1" frameborder="0" allowfullscreen></iframe>',
+        youtube_pattern,
+        # Change "no-referrer" to "origin"
+        r'<iframe width="560" height="315" src="https://www.youtube.com/embed/\1" frameborder="0" allowfullscreen referrerpolicy="origin"></iframe>',
         content
     )
     # Apple Music song: https://music.apple.com/us/album/song-name/ALBUM_ID?i=SONG_ID
