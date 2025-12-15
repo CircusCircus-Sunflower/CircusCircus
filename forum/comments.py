@@ -40,6 +40,6 @@ def delete_comment(comment_id):
 	db.session.commit()
 	return redirect("/viewpost?post=" + str(post_id))
 
-# Top two code blocks "def comment" & "def delete" have been added, ran and tested.
+# Top two code blocks "def comment" & "def delete" have been added, run and tested.
 
 # Moved to a new Port to solve running issues "Port 5002"
